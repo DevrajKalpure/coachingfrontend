@@ -3,7 +3,7 @@
 .samples-container {
     padding: 4rem 2rem;
     max-width: 1200px;
-    margin: 4rem auto 0; /* Add margin to separate from the pricing section */
+    margin: 4rem auto 0;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.08);
@@ -49,15 +49,26 @@
 .sample-image-wrapper {
     position: relative;
     cursor: pointer;
+    overflow: hidden; /* Hide anything that goes outside the wrapper */
 }
 
+/* --- NEW: Blur effect added --- */
 .sample-image {
     width: 100%;
     display: block;
-    aspect-ratio: 1 / 1.41; /* A4 paper aspect ratio */
+    aspect-ratio: 1 / 1.41;
     object-fit: cover;
     object-position: top;
     border-bottom: 3px solid var(--primary-color);
+    filter: blur(4px); /* Initial blur */
+    transform: scale(1.1); /* Slightly zoom in to hide blurred edges */
+    transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+/* --- NEW: Un-blur on hover --- */
+.sample-card:hover .sample-image {
+    filter: blur(0);
+    transform: scale(1);
 }
 
 .sample-overlay {
@@ -66,7 +77,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 86, 179, 0.8);
+    background-color: rgba(0, 86, 179, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,6 +98,8 @@
     font-weight: 600;
     transform: scale(0.9);
     transition: transform 0.3s ease;
+    border: none; /* It's a button now */
+    cursor: pointer;
 }
 
 .sample-card:hover .btn-view-sample {
@@ -97,15 +110,69 @@
     padding: 1.5rem;
     text-align: center;
 }
-
 .sample-info h3 {
     margin: 0 0 0.5rem;
     font-size: 1.4rem;
     color: var(--heading-color);
 }
-
 .sample-info p {
     margin: 0;
     line-height: 1.6;
     color: var(--text-color);
+}
+
+
+/* --- NEW: FULLSCREEN MODAL STYLES --- */
+.fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fullscreen-content {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.fullscreen-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.btn-close-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.btn-close-fullscreen:hover {
+    color: #ffc107; /* A nice highlight color */
+    transform: scale(1.1);
 }
