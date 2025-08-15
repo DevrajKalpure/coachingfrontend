@@ -1,0 +1,111 @@
+/* Styles for the Resume Samples Section */
+
+.samples-container {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 4rem auto 0; /* Add margin to separate from the pricing section */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+.section-title-samples {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title-samples h2 {
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    margin: 0 0 0.5rem;
+}
+
+.section-title-samples p {
+    font-size: 1.15rem;
+    color: var(--text-color);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.samples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+.sample-card {
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sample-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.sample-image-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.sample-image {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1 / 1.41; /* A4 paper aspect ratio */
+    object-fit: cover;
+    object-position: top;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.sample-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 86, 179, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sample-card:hover .sample-overlay {
+    opacity: 1;
+}
+
+.btn-view-sample {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.sample-card:hover .btn-view-sample {
+    transform: scale(1);
+}
+
+.sample-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.sample-info h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+    color: var(--heading-color);
+}
+
+.sample-info p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text-color);
+}
