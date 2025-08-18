@@ -1,0 +1,111 @@
+/* Styles for Certifications Page */
+
+.cert-page-container {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Hero Section */
+.cert-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: var(--background-color);
+}
+.hero-content h1 {
+    font-size: 3rem;
+    color: var(--heading-color);
+}
+.hero-content .subtitle {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 1rem auto 0;
+}
+
+/* Certifications List Section */
+.cert-list-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+.cert-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--primary-color);
+}
+.cert-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin: 0 0 1rem;
+}
+.cert-card .cert-description {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+.cert-card .cert-for-who {
+    font-style: italic;
+    color: #555;
+    margin: 0;
+}
+
+/* Enquiry Form Section */
+.cert-enquiry-section {
+    padding: 4rem 2rem;
+    background-color: var(--background-color);
+}
+.enquiry-form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.section-title-enquiry {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.section-title-enquiry h2 {
+    font-size: 2.2rem;
+    color: var(--heading-color);
+}
+.enquiry-form-cert .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.enquiry-form-cert .form-group {
+    margin-bottom: 1rem;
+}
+.enquiry-form-cert input,
+.enquiry-form-cert textarea,
+.enquiry-form-cert select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.btn-submit-cert {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-submit-cert:hover {
+    background-color: var(--primary-color);
+}

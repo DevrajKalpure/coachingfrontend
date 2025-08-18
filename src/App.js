@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, NavLink, useNavigate } from 'react-router-dom';
 
-// Component Imports
+// --- 1. IMPORT YOUR NEW COMPONENT ---
+import ScrollToTop from './components/ScrollToTop';
+
+// All other component imports remain the same
 import HomePage from './components/HomePage';
 import CourseDetail from './components/CourseDetail';
-import ResumePage from './components/ResumePage';
-import AdminAuth from './components/AdminAuth';
-import AdminPage from './components/AdminPage'; // Make sure you have this component
-import AboutUsPage from './components/AboutUsPage';
-import ServicesPage from './components/ServicesPage';
 import CoursesPage from './components/CoursesPage';
+import ResumePage from './components/ResumePage';
+import ServicesPage from './components/ServicesPage';
+import AboutUsPage from './components/AboutUsPage';
+import CertificationsPage from './components/CertificationsPage';
+import AdminAuth from './components/AdminAuth';
+import AdminPage from './components/AdminPage';
 import Footer from './components/Footer';
 
 // Styles
 import './App.css';
 
-// A wrapper component to handle navigation logic within the main App component
+// The AppLogic component does NOT need any changes
 function AppLogic() {
+    // ... all of your existing code for AppLogic remains exactly the same ...
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem('isAdminAuthenticated') === 'true');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // This effect ensures that if the state is ever out of sync with sessionStorage, it gets corrected.
     useEffect(() => {
         const checkAuth = () => {
             setIsAuthenticated(sessionStorage.getItem('isAdminAuthenticated') === 'true');
         };
-        window.addEventListener('storage', checkAuth); // Listen for storage changes in other tabs
+        window.addEventListener('storage', checkAuth);
         return () => window.removeEventListener('storage', checkAuth);
     }, []);
 
@@ -35,7 +38,7 @@ function AppLogic() {
         if (password === 'coaching') {
             sessionStorage.setItem('isAdminAuthenticated', 'true');
             setIsAuthenticated(true);
-            navigate('/admin'); // Redirect to admin panel on successful login
+            navigate('/admin');
             return true;
         }
         return false;
@@ -44,65 +47,46 @@ function AppLogic() {
     const handleLogout = () => {
         sessionStorage.removeItem('isAdminAuthenticated');
         setIsAuthenticated(false);
-        navigate('/'); // Redirect to home page on logout
+        navigate('/');
     };
+
+    const closeMenu = () => setIsMenuOpen(false);
 
     return (
         <>
             <header className="app-header">
-                <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>ProCoach</Link>
+                <Link to="/" className="logo" onClick={closeMenu}>ProCoach</Link>
                 
-                {/* Hamburger menu button for mobile */}
                 <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    &#9776; {/* This is the hamburger icon */}
+                    <div className="hamburger-line"></div>
+                    <div className="hamburger-line"></div>
+                    <div className="hamburger-line"></div>
                 </button>
 
                 <nav className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-    {/* Use NavLink and add a class for styling. The 'end' prop on Home is important! */}
-    <NavLink to="/" className="nav-item" onClick={() => setIsMenuOpen(false)} end>
-        Home
-    </NavLink>
-    <NavLink to="/courses" className="nav-item" onClick={() => setIsMenuOpen(false)}>
-        Courses
-    </NavLink>
-    <NavLink to="/resume" className="nav-item" onClick={() => setIsMenuOpen(false)}>
-        Resume
-    </NavLink>
-    <NavLink to="/services" className="nav-item" onClick={() => setIsMenuOpen(false)}>
-        Services
-    </NavLink>
-    <NavLink to="/about" className="nav-item" onClick={() => setIsMenuOpen(false)}>
-        About Us
-    </NavLink>
-    {isAuthenticated && (
-        <NavLink to="/admin" className="nav-item" onClick={() => setIsMenuOpen(false)}>
-            Admin Panel
-        </NavLink>
-    )}
-</nav>
+                    <NavLink to="/" className="nav-item" onClick={closeMenu} end>Home</NavLink>
+                    <NavLink to="/courses" className="nav-item" onClick={closeMenu}>Courses</NavLink>
+                    <NavLink to="/certifications" className="nav-item" onClick={closeMenu}>Certifications</NavLink>
+                    <NavLink to="/services" className="nav-item" onClick={closeMenu}>Services</NavLink>
+                    <NavLink to="/resume" className="nav-item" onClick={closeMenu}>Resume</NavLink>
+                    <NavLink to="/about" className="nav-item" onClick={closeMenu}>About Us</NavLink>
+                    
+                    {isAuthenticated && (
+                        <NavLink to="/admin" className="nav-item" onClick={closeMenu}>Admin Panel</NavLink>
+                    )}
+                </nav>
             </header>
-            <main className="container">
+            
+            <main className="main-content">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/courses" element={<CoursesPage />} />
                     <Route path="/course/:id" element={<CourseDetail />} />
+                    <Route path="/certifications" element={<CertificationsPage />} />
                     <Route path="/resume" element={<ResumePage />} />
-                    {/* Add other routes for Courses, Services, About Us when you create them */}
-                    <Route path="/courses" element={<CoursesPage />} /> 
-                    <Route path="/services" element={<ServicesPage />} /> 
-                    <Route path="/about" element={<AboutUsPage />} /> 
-
-                    {/* Protected Admin Route */}
-                    <Route 
-                        path="/admin" 
-                        element={
-                            isAuthenticated ? (
-                                <AdminPage onLogout={handleLogout} />
-
-                            ) : (
-                                <AdminAuth onLogin={handleLogin} />
-                            )
-                        } 
-                    />
+                    <Route path="/services" element={<ServicesPage />} />
+                    <Route path="/about" element={<AboutUsPage />} />
+                    <Route path="/admin" element={ isAuthenticated ? <AdminPage onLogout={handleLogout} /> : <AdminAuth onLogin={handleLogin} /> } />
                 </Routes>
             </main>
             <Footer />
@@ -110,10 +94,12 @@ function AppLogic() {
     );
 }
 
-
+// The main App component is where you'll make the change
 function App() {
     return (
         <Router>
+            {/* --- 2. PLACE THE COMPONENT HERE --- */}
+            <ScrollToTop />
             <AppLogic />
         </Router>
     );
