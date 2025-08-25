@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'http://13.61.174.141:8080/api';
+//const API_URL = 'http://13.61.174.141:8080/api';
 
+// Use relative path so Vercel can proxy HTTPS requests to your HTTP backend
 const api = axios.create({
-    baseURL: API_URL,
+    baseURL: '/api',
 });
+
 
 // Course API calls
 export const getAllCourses = () => api.get('/courses');
